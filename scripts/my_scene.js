@@ -20,24 +20,37 @@ class MyScene extends Phaser.Scene {
          // 単体画像をシーンに追加(X座標,Y座標,画像名)
         this.add.image(D_WIDTH/2, D_HEIGHT/2, 'background');
         this.text = this.add.text(10, 10, 'Scene 1').setFontSize(32).setColor('#ff0');
-        this.player = this.add.image(500, 350, 'taro');
+        this.player = this.add.image(400, 200, 'taro');
+        this.player.angle=0;
         this.player_direction = 1;
     }
     
   // 毎フレーム実行される繰り返し処理
     update() {
-        if (this.player.x >= D_WIDTH - 100) this.player_direction = -1;
-        if (this.player.x <= 100) this.player_direction = 1;
+        // if (this.player.x >= D_WIDTH - 100) this.player_direction = -1;
+        // if (this.player.x <= 100) this.player_direction = 1;
+        // // プレイヤーの移動
+
+        // if (this.player_direction == 1) {
+        //     this.player.x+=20;
+        //     this.player.y+=20;
+            
+        // } else {
+        //     this.player.x+=-20;
+        //     this.player.y+=-20;
+
+        // }
+        this.player.angle += 5;
         // プレイヤーの移動
 
         if (this.player_direction == 1) {
-            this.player.x+=20;
-            this.player.y+=20;
+            this.player.x+=50;
+            this.player.y-=50;
             
-        } else {
-            this.player.x+=-20;
-            this.player.y+=-20;
-
+        }
+        if(this.player.x >D_WIDTH-100 || this.player.y >D_HEIGHT-100){
+            this.player.x=400;
+            this.player.y=250;
         }
     }
 
