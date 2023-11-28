@@ -44,8 +44,8 @@ class MyScene extends Phaser.Scene {
         // プレイヤーの移動
 
         if (this.player_direction == 1) {
-            this.player.x+=50;
-            this.player.y-=50;
+            this.player.x+=5;
+            this.player.y-=5;
             
         }
         if(this.player.x >D_WIDTH-100 || this.player.y >D_HEIGHT-100){
