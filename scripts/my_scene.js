@@ -14,6 +14,7 @@ class MyScene extends Phaser.Scene {
         this.load.image('background', 'assets/background.png');
         this.load.image('taro', 'assets/taro.png');
         this.load.image('jiro', 'assets/kani.png');
+        this.load.image('hanako', 'assets/hanako.png');
     }
 
     // シーン初期化処理
@@ -25,11 +26,13 @@ class MyScene extends Phaser.Scene {
         const player1 = this.physics.add.sprite(400, 200, 'taro');
         this.player1=player1;
         const player2 = this.physics.add.sprite(500, 150, 'jiro');
-        this.player2 = player2
+        this.player2 = player2;
+        
         //this.player.angle=0;
         ///WASDキーを検知できるようにする
 
         this.keys = {};
+        this.keys.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keys.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keys.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keys.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -42,6 +45,9 @@ class MyScene extends Phaser.Scene {
             this.object = this.add.text(100, 50, 'Hello!').setFontSize(32).setColor('#ff0');
         }else if(keys.keyD.isDown){ //Dが押されている時
             object.destroy();
+        }else if(keys.keyW.isDown){
+            let  randx = Phaser.Math.Between(100, 400); 
+            this.physics.add.sprite(randx, 100, 'hanako');;
         }
 
     }
