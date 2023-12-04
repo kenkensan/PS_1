@@ -46,13 +46,15 @@ class MyScene extends Phaser.Scene {
         this.keys.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keys.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keys.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-
+        this.gameClear=false;
          // hanakoに衝突したら実行する
          this.physics.add.overlap(player1, physics, collectHanako, null, this);
          function collectHanako(p,hanako){  
             // 物理演算(ボディ)の無効化 (非アクティブ化, 非表示)
              this.text3 = this.add.text(100, 150, '痛い!').setFontSize(32).setColor('#ff0');
              hanako.disableBody(false, true);
+             hanako.destroy();
+             this.gameClear=true;
  
          }
     }
@@ -100,6 +102,14 @@ class MyScene extends Phaser.Scene {
     return;
 
 }
+  // ゲームクリア処理
+
+  quitGame(){
+    this.add.text(400,200, 'Taro Win!', { fontSize: '32px', fill: '#CDC' });
+      //物理エンジンを止める
+    this.physics.pause();
+    return;
+}
   // 毎フレーム実行される繰り返し処理
     update(time, delta) {
         //  if (this.player.x >= D_WIDTH - 100) this.player_direction = -1;
@@ -140,6 +150,9 @@ class MyScene extends Phaser.Scene {
         }
        this.wasd_move(this.keys,this.text2);
        if(this.countdounTimer) this.countdown(delta);
+       if(this.gameClear==true){
+        this.quitGame();
+       }
     }
 
 }
