@@ -22,7 +22,6 @@ class MyScene extends Phaser.Scene {
         this.add.image(D_WIDTH/2, D_HEIGHT/2, 'background');
         this.text1 = this.add.text(10, 10, 'Scene 1').setFontSize(32).setColor('#ff0');
         this.text2 = this.add.text(600, 400, 'MyWorld').setFontSize(32).setColor('#ff0');
-        this.text3 = this.add.text(100, 50, '').setFontSize(32).setColor('#ff0');
         const player1 = this.physics.add.sprite(400, 200, 'taro');
         this.player1=player1;
         const player2 = this.physics.add.sprite(500, 150, 'jiro');
@@ -36,15 +35,13 @@ class MyScene extends Phaser.Scene {
         this.keys.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
-    wasd_move(keys, object){
+    wasd_move(keys,object){
         if(keys.keyS.isDown){  //Sが押されている時
-            this.text3 =this.add.text(100, 50, 'Hey!').setFontSize(32).setColor('#ff0');
+            object = this.add.text(100, 50, 'Hey!').setFontSize(32).setColor('#ff0');
         }else if(keys.keyA.isDown){  //Aが押されている時
-            this.text3 =this.add.text(100, 50, 'Hello!').setFontSize(32).setColor('#ff0');
+            this.object = this.add.text(100, 50, 'Hello!').setFontSize(32).setColor('#ff0');
         }else if(keys.keyD.isDown){ //Dが押されている時
-            this.text3 =this.add.text(100, 50, '').setFontSize(32).setColor('#ff0');
-        }else{
-            object.setVelocity(0,0);// 横方向の速度を0
+            object.destroy();
         }
 
     }
@@ -84,7 +81,7 @@ class MyScene extends Phaser.Scene {
        this.player1.x += 5;// 右方向に移動
        this.player2.x -= 5;// 右方向に移動
        }
-       this.wasd_move(this.keys, this.player2);
+       this.wasd_move(this.keys,this.text2);
     }
 
 }
