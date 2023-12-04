@@ -22,7 +22,7 @@ class MyScene extends Phaser.Scene {
         //タイマー
         this._timeCounter = 0;  
         //残り時間
-        this._leftTime = 3;
+        this._leftTime = 0;
         this.countdounTimer = true;
          // 単体画像をシーンに追加(X座標,Y座標,画像名)
         this.add.image(D_WIDTH/2, D_HEIGHT/2, 'background');
@@ -39,7 +39,7 @@ class MyScene extends Phaser.Scene {
         let physics = this.physics.add.group();// 動く物体をまとめる
         let  randx = Phaser.Math.Between(200, 400);
         let  randy = Phaser.Math.Between(100, 200);
-        physics.create(randx, randy, 'hanako');
+        this.hanako= physics.create(randx, randy, 'hanako');
 
         this.keys = {};
         this.keys.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -81,9 +81,9 @@ class MyScene extends Phaser.Scene {
             // 1000ミリ秒経過したのでカウンターをリセット
             this._timeCounter = 0;
             // 残り時間を減らす
-            this._leftTime --;
+            this._leftTime ++;
         }
-        if(this._leftTime <= 0) {
+        if(this._leftTime %3 == 0 && this._leftTime != 0) {
             this.quitHanako();
 
         }
@@ -92,13 +92,21 @@ class MyScene extends Phaser.Scene {
   // 花子の表示処理
 
   quitHanako(){
-    let  randx = Phaser.Math.Between(200, 400);
-    let  randy = Phaser.Math.Between(100, 200);
-    this.physics.add.sprite(randx, randy, 'hanako');
+    if(this.hanako != null){
+       this.hanako.destroy();
+    }
+        let physics = this.physics.add.group();
+        let  randx = Phaser.Math.Between(200, 400);
+        let  randy = Phaser.Math.Between(100, 200);
+        this.hanako= physics.create(randx, randy, 'hanako');
+
+        
+        
+        
+        this.countdounTimer= false;
 
 
-    //カウントダウンタイマーを止めるためにフラグをfalseにする
-    this.countdounTimer = false;
+
     return;
 
 }
